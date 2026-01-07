@@ -3589,6 +3589,8 @@
           in
           lib.subtractLists (f old) (f merged);
 
+        override-flag = name: cond: if cond then (flag name) else (leaf name false);
+
         _layout = is-override: cfg: [
           (leaf "gaps" cfg.gaps)
           (plain "struts" [
@@ -3615,11 +3617,8 @@
           (optional-node (cfg.default-column-display != "normal") (
             leaf "default-column-display" cfg.default-column-display
           ))
-          (
-            if is-override then
-              (flag "always-center-single-column" cfg.always-center-single-column)
-            else
-              (flag' "always-center-single-column" cfg.always-center-single-column)
+          ((if is-override then override-flag else flag') "always-center-single-column"
+            cfg.always-center-single-column
           )
           (flag' "empty-workspace-above-first" cfg.empty-workspace-above-first)
         ];
