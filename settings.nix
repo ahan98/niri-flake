@@ -3615,12 +3615,13 @@
           (optional-node (cfg.default-column-display != "normal") (
             leaf "default-column-display" cfg.default-column-display
           ))
-          ((if is-override then flag else flag') "always-center-single-column"
-            cfg.always-center-single-column
+          (
+            if is-override then
+              (flag "always-center-single-column" cfg.always-center-single-column)
+            else
+              (flag' "always-center-single-column" cfg.always-center-single-column)
           )
-          ((if is-override then flag else flag') "empty-workspace-above-first"
-            cfg.empty-workspace-above-first
-          )
+          (flag' "empty-workspace-above-first" cfg.empty-workspace-above-first)
         ];
 
         layout = _layout false;
