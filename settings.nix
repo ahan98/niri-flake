@@ -3624,7 +3624,7 @@
         ];
 
         layout = _layout false;
-        override-layout = override (_layout true);
+        override-layout = _layout true;
       in
       normalize-nodes [
         (plain "input" [
@@ -3699,7 +3699,7 @@
               (optional-node (output.variable-refresh-rate != false) (
                 leaf "variable-refresh-rate" { on-demand = output.variable-refresh-rate == "on-demand"; }
               ))
-              (plain "layout" (override-layout cfg.layout output.layout))
+              (plain "layout" (override override-layout cfg.layout output.layout))
             ])
           ])
         ]))
@@ -3756,7 +3756,7 @@
         (each' cfg.workspaces (workspace: [
           (node "workspace" workspace.name [
             (nullable leaf "open-on-output" workspace.open-on-output)
-            (plain "layout" (override-layout cfg.layout workspace.layout))
+            (plain "layout" (override override-layout cfg.layout workspace.layout))
           ])
         ]))
 
