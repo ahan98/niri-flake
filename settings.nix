@@ -891,9 +891,10 @@
         {
           options,
           make-nullable ? false,
+          exclude ? [ ],
         }:
         let
-          base = [
+          base = map (lib.filterAttrs (n: _: !(lib.elem n exclude))) [
             {
               focus-ring = borderish {
                 enable-by-default = true;
@@ -1640,6 +1641,14 @@
                   description = ''
                     The name of the output the workspace should be assigned to.
                   '';
+                };
+                layout = make-layout-options {
+                  inherit options;
+                  make-nullable = true;
+                  exclude = [
+                    "empty-workspace-above-first"
+                    "insert-hint"
+                  ];
                 };
               })
               // {
@@ -3737,9 +3746,10 @@
           )) cfg.switch-events
         ))
 
-        (each' cfg.workspaces (cfg: [
-          (node "workspace" cfg.name [
-            (nullable leaf "open-on-output" cfg.open-on-output)
+        (each' cfg.workspaces (workspace: [
+          (node "workspace" workspace.name [
+            (nullable leaf "open-on-output" workspace.open-on-output)
+            (plain "layout" (override layout cfg.layout workspace.layout))
           ])
         ]))
 

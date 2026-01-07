@@ -540,6 +540,500 @@ use the key instead. If you do care about it, you can use the key to order them,
 and a `name` attribute to have a friendlier name.
 
 
+<!-- programs.niri.settings.workspaces.<name>.layout -->
+
+## `programs.niri.settings.workspaces.<name>.layout.border`
+- type: `null or (submodule)`
+- default: `null`
+
+The border is a decoration drawn *inside* every window in the layout. It will take space away from windows. That is, if you have a border of 8px, then each window will be 8px smaller on each edge than if you had no border.
+
+The currently focused window, i.e. the window that can receive keyboard input, will be drawn according to [`layout.border.active`](#programsnirisettingslayoutborderactive), and all other windows will be drawn according to [`layout.border.inactive`](#programsnirisettingslayoutborderinactive).
+
+If you have [`layout.focus-ring`](#programsnirisettingslayoutfocus-ring) enabled, the border will be drawn inside (and over) the focus ring.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.border.enable`
+- type: `boolean`
+- default: `false`
+
+Whether to enable the border.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.border.width`
+- type: `floating point number or signed integer`
+- default: `4`
+
+The width of the border drawn around each window.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.border.active`
+- type: `null or`[`<decoration>`](#decoration)
+- default: `null`
+
+The color of the border for the window that has keyboard focus.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.border.inactive`
+- type: `null or`[`<decoration>`](#decoration)
+- default: `null`
+
+The color of the border for windows that do not have keyboard focus.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.border.urgent`
+- type: `null or`[`<decoration>`](#decoration)
+- default: `null`
+
+The color of the border for windows that are requesting attention.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.focus-ring`
+- type: `null or (submodule)`
+- default: `null`
+
+The focus ring is a decoration drawn *around* the last focused window on each monitor. It takes no space away from windows. If you have insufficient gaps, the focus ring can be drawn over adjacent windows, but it will never affect the layout of windows.
+
+The focused window of the currently focused monitor, i.e. the window that can receive keyboard input, will be drawn according to [`layout.focus-ring.active`](#programsnirisettingslayoutfocus-ringactive), and the last focused window on all other monitors will be drawn according to [`layout.focus-ring.inactive`](#programsnirisettingslayoutfocus-ringinactive).
+
+If you have [`layout.border`](#programsnirisettingslayoutborder) enabled, the focus ring will be drawn around (and under) the border.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.focus-ring.enable`
+- type: `boolean`
+- default: `true`
+
+Whether to enable the focus ring.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.focus-ring.width`
+- type: `floating point number or signed integer`
+- default: `4`
+
+The width of the focus ring drawn around each focused window.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.focus-ring.active`
+- type: `null or`[`<decoration>`](#decoration)
+- default: `null`
+
+The color of the focus ring for the window that has keyboard focus.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.focus-ring.inactive`
+- type: `null or`[`<decoration>`](#decoration)
+- default: `null`
+
+The color of the focus ring for windows that do not have keyboard focus.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.focus-ring.urgent`
+- type: `null or`[`<decoration>`](#decoration)
+- default: `null`
+
+The color of the focus ring for windows that are requesting attention.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.shadow`
+- type: `null or (submodule)`
+- default: `null`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.shadow.color`
+- type: `string`
+- default: `"#00000070"`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.shadow.draw-behind-window`
+- type: `boolean`
+- default: `false`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.shadow.enable`
+- type: `boolean`
+- default: `false`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.shadow.inactive-color`
+- type: `null or string`
+- default: `null`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.shadow.offset`
+
+
+The offset of the shadow from the window, measured in logical pixels.
+
+This behaves like a [CSS box-shadow offset](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow#syntax)
+
+
+## `programs.niri.settings.workspaces.<name>.layout.shadow.offset.x`
+- type: `floating point number or signed integer`
+- default: `0.000000`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.shadow.offset.y`
+- type: `floating point number or signed integer`
+- default: `5.000000`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.shadow.softness`
+- type: `floating point number or signed integer`
+- default: `30.000000`
+
+The softness/size of the shadow, measured in logical pixels.
+
+This behaves like a [CSS box-shadow blur radius](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow#syntax)
+
+
+## `programs.niri.settings.workspaces.<name>.layout.shadow.spread`
+- type: `floating point number or signed integer`
+- default: `5.000000`
+
+The spread of the shadow, measured in logical pixels.
+
+This behaves like a [CSS box-shadow spread radius](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow#syntax)
+
+
+## `<decoration>`
+- type: `null or attribute-tagged union with choices: color, gradient`
+- default: `null`
+
+A decoration is drawn around a surface, adding additional elements that are not necessarily part of an application, but are part of what we think of as a "window".
+
+This type specifically represents decorations drawn by niri: that is, [`layout.focus-ring`](#programsnirisettingslayoutfocus-ring) and/or [`layout.border`](#programsnirisettingslayoutborder).
+
+
+## `<decoration>.color`
+- type: `string`
+
+A solid color to use for the decoration.
+
+This is a CSS [`<color>`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) value, like `"rgb(255 0 0)"`, `"#C0FFEE"`, or `"sandybrown"`.
+
+The specific crate that niri uses to parse this also supports some nonstandard color functions, like `hwba()`, `hsv()`, `hsva()`. See [`csscolorparser`](https://crates.io/crates/csscolorparser) for details.
+
+
+## `<decoration>.gradient`
+- type: `gradient`
+
+A linear gradient to use for the decoration.
+
+This is meant to approximate the CSS [`linear-gradient()`](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient) function, but niri does not fully support all the same parameters. Only an angle in degrees is supported.
+
+
+## `<decoration>.gradient.angle`
+- type: `signed integer`
+- default: `180`
+
+The angle of the gradient, in degrees, measured clockwise from a gradient that starts at the bottom and ends at the top.
+
+This is the same as the angle parameter in the CSS [`linear-gradient()`](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient) function, except you can only express it in degrees.
+
+
+## `<decoration>.gradient.from`
+- type: `string`
+
+The starting [`<color>`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) of the gradient.
+
+For more details, see [`<decoration>.color`](#decorationcolor).
+
+
+## `<decoration>.gradient.in'`
+- type: `null or one of "srgb", "srgb-linear", "oklab", "oklch shorter hue", "oklch longer hue", "oklch increasing hue", "oklch decreasing hue"`
+- default: `null`
+
+The colorspace to interpolate the gradient in. This option is named `in'` because `in` is a reserved keyword in Nix.
+
+This is a subset of the [`<color-interpolation-method>`](https://developer.mozilla.org/en-US/docs/Web/CSS/color-interpolation-method) values in CSS.
+
+
+## `<decoration>.gradient.relative-to`
+- type: `one of "window", "workspace-view"`
+- default: `"window"`
+
+The rectangle that this gradient is contained within.
+
+If a gradient is `relative-to` the `"window"`, then the gradient will start and stop at the window bounds. If you have many windows, then the gradients will have many starts and stops.
+
+![four windows arranged in two columns; a big window to the left of three stacked windows.
+a gradient is drawn from the bottom left corner of each window, which is yellow, transitioning to red at the top right corner of each window.
+the three vertical windows look identical, with a yellow and red corner, and the other two corners are slightly different shades of orange.
+the big window has a yellow and red corner, with the top left corner being a very red orange orange, and the bottom right corner being a very yellow orange.
+the top edge of the top stacked window has a noticeable transition from a yellowish orange to completely red.
+](/assets/relative-to-window.png "behaviour of relative-to=\"window\"")
+
+
+If the gradient is instead `relative-to` the `"workspace-view"`, then the gradient will start and stop at the bounds of your view. Windows decorations will take on the color values from just the part of the screen that they occupy
+
+![four windows arranged in two columns; a big window to the left of three stacked windows.
+a gradient is drawn from the bottom left corner of the workspace view, which is yellow, transitioning to red at the top right corner of the workspace view.
+it looks like the gradient starts in the bottom left of the big window, and ends in the top right of the upper stacked window.
+the bottom left corner of the top stacked window is a red orange color, and the bottom left corner of the middle stacked window is a more neutral orange color.
+the bottom edge of the big window is almost entirely yellow, and the top edge of the top stacked window is almost entirely red.
+](/assets/relative-to-workspace-view.png "behaviour of relative-to=\"workspace-view\"")
+
+
+these beautiful images are sourced from the release notes for [`v0.1.3`](https://github.com/YaLTeR/niri/releases/tag/v0.1.3)
+
+
+## `<decoration>.gradient.to`
+- type: `string`
+
+The ending [`<color>`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) of the gradient.
+
+For more details, see [`<decoration>.color`](#decorationcolor).
+
+
+## `programs.niri.settings.workspaces.<name>.layout.background-color`
+- type: `null or string`
+- default: `null`
+
+The default background color that niri draws for workspaces. This is visible when you're not using any background tools like swaybg.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.preset-column-widths`
+- type: `null or (list of attribute-tagged union with choices: fixed, proportion)`
+- default: `null`
+
+The widths that `switch-preset-column-width` will cycle through.
+
+Each width can either be a fixed width in logical pixels, or a proportion of the screen's width.
+
+Example:
+
+```nix
+{
+  programs.niri.settings.layout.preset-column-widths = [
+    { proportion = 1. / 3.; }
+    { proportion = 1. / 2.; }
+    { proportion = 2. / 3.; }
+
+    # { fixed = 1920; }
+  ];
+}
+```
+
+
+
+## `programs.niri.settings.workspaces.<name>.layout.preset-column-widths.*.fixed`
+- type: `signed integer`
+
+The width of the column in logical pixels
+
+
+## `programs.niri.settings.workspaces.<name>.layout.preset-column-widths.*.proportion`
+- type: `floating point number`
+
+The width of the column as a proportion of the screen's width
+
+
+## `programs.niri.settings.workspaces.<name>.layout.preset-window-heights`
+- type: `null or (list of attribute-tagged union with choices: fixed, proportion)`
+- default: `null`
+
+The heights that `switch-preset-window-height` will cycle through.
+
+Each height can either be a fixed height in logical pixels, or a proportion of the screen's height.
+
+Example:
+
+```nix
+{
+  programs.niri.settings.layout.preset-window-heights = [
+    { proportion = 1. / 3.; }
+    { proportion = 1. / 2.; }
+    { proportion = 2. / 3.; }
+
+    # { fixed = 1080; }
+  ];
+}
+```
+
+
+
+## `programs.niri.settings.workspaces.<name>.layout.preset-window-heights.*.fixed`
+- type: `signed integer`
+
+The height of the window in logical pixels
+
+
+## `programs.niri.settings.workspaces.<name>.layout.preset-window-heights.*.proportion`
+- type: `floating point number`
+
+The height of the window as a proportion of the screen's height
+
+
+## `programs.niri.settings.workspaces.<name>.layout.always-center-single-column`
+- type: `null or boolean`
+- default: `null`
+
+This is like `center-focused-column = "always";`, but only for workspaces with a single column. Changes nothing if `center-focused-column` is set to `"always"`. Has no effect if more than one column is present.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.center-focused-column`
+- type: `null or one of "never", "always", "on-overflow"`
+- default: `null`
+
+When changing focus, niri can automatically center the focused column.
+
+- `"never"`: If the focused column doesn't fit, it will be aligned to the edges of the screen.
+- `"on-overflow"`: if the focused column doesn't fit, it will be centered on the screen.
+- `"always"`: the focused column will always be centered, even if it was already fully visible.
+
+
+
+## `programs.niri.settings.workspaces.<name>.layout.default-column-display`
+- type: `null or one of "normal", "tabbed"`
+- default: `null`
+
+How windows in columns should be displayed by default.
+
+- `"normal"`: Windows are arranged vertically, spread across the working area height.
+- `"tabbed"`: Windows are arranged in tabs, with only the focused window visible, taking up the full height of the working area.
+
+
+Note that you can override this for a given column at any time. Every column remembers its own display mode, independent from this setting. This setting controls the default value when a column is *created*.
+
+Also, since a newly created column always contains a single window, you can override this default value with [`window-rules.*.default-column-display`](#programsnirisettingswindow-rulesdefault-column-display).
+
+
+## `programs.niri.settings.workspaces.<name>.layout.default-column-width`
+- type: `null or {} or attribute-tagged union with choices: fixed, proportion`
+- default: `null`
+
+The default width for new columns.
+
+When this is set to an empty attrset `{}`, windows will get to decide their initial width. This is not null, such that it can be distinguished from window rules that don't touch this
+
+See [`layout.preset-column-widths`](#programsnirisettingslayoutpreset-column-widths) for more information.
+
+You can override this for specific windows using [`window-rules.*.default-column-width`](#programsnirisettingswindow-rulesdefault-column-width)
+
+
+## `programs.niri.settings.workspaces.<name>.layout.default-column-width.fixed`
+- type: `signed integer`
+
+The width of the column in logical pixels
+
+
+## `programs.niri.settings.workspaces.<name>.layout.default-column-width.proportion`
+- type: `floating point number`
+
+The width of the column as a proportion of the screen's width
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator`
+- type: `null or (submodule)`
+- default: `null`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.corner-radius`
+- type: `floating point number or signed integer`
+- default: `0.000000`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.enable`
+- type: `boolean`
+- default: `true`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.gap`
+- type: `floating point number or signed integer`
+- default: `5.000000`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.gaps-between-tabs`
+- type: `floating point number or signed integer`
+- default: `0.000000`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.hide-when-single-tab`
+- type: `boolean`
+- default: `false`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.length.total-proportion`
+- type: `floating point number`
+- default: `0.500000`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.place-within-column`
+- type: `boolean`
+- default: `false`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.position`
+- type: `one of "left", "right", "top", "bottom"`
+- default: `"left"`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.width`
+- type: `floating point number or signed integer`
+- default: `4.000000`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.active`
+- type: `null or`[`<decoration>`](#decoration)
+- default: `null`
+
+The color of the tab indicator for the window that has keyboard focus.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.inactive`
+- type: `null or`[`<decoration>`](#decoration)
+- default: `null`
+
+The color of the tab indicator for windows that do not have keyboard focus.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.tab-indicator.urgent`
+- type: `null or`[`<decoration>`](#decoration)
+- default: `null`
+
+The color of the tab indicator for windows that are requesting attention.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.gaps`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+The gap between windows in the layout, measured in logical pixels.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.struts`
+- type: `null or (submodule)`
+- default: `null`
+
+The distances from the edges of the screen to the eges of the working area.
+
+The top and bottom struts are absolute gaps from the edges of the screen. If you set a bottom strut of 64px and the scale is 2.0, then the output will have 128 physical pixels under the scrollable working area where it only shows the wallpaper.
+
+Struts are computed in addition to layer-shell surfaces. If you have a waybar of 32px at the top, and you set a top strut of 16px, then you will have 48 logical pixels from the actual edge of the display to the top of the working area.
+
+The left and right structs work in a similar way, except the padded space is not empty. The horizontal struts are used to constrain where focused windows are allowed to go. If you define a left strut of 64px and go to the first window in a workspace, that window will be aligned 64 logical pixels from the left edge of the output, rather than snapping to the actual edge of the screen. If another window exists to the left of this window, then you will see 64px of its right edge (if you have zero borders and gaps)
+
+
+## `programs.niri.settings.workspaces.<name>.layout.struts.bottom`
+- type: `floating point number or signed integer`
+- default: `0`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.struts.left`
+- type: `floating point number or signed integer`
+- default: `0`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.struts.right`
+- type: `floating point number or signed integer`
+- default: `0`
+
+
+## `programs.niri.settings.workspaces.<name>.layout.struts.top`
+- type: `floating point number or signed integer`
+- default: `0`
+
+
 ## `programs.niri.settings.workspaces.<name>.name`
 - type: `string`
 - default: `the key of the workspace`
