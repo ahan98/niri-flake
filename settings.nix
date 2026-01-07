@@ -3589,7 +3589,7 @@
           in
           lib.subtractLists (f old) (f merged);
 
-        layout = cfg: [
+        _layout = is-override: cfg: [
           (leaf "gaps" cfg.gaps)
           (plain "struts" [
             (leaf "left" cfg.struts.left)
@@ -3615,9 +3615,16 @@
           (optional-node (cfg.default-column-display != "normal") (
             leaf "default-column-display" cfg.default-column-display
           ))
-          (flag' "always-center-single-column" cfg.always-center-single-column)
-          (flag' "empty-workspace-above-first" cfg.empty-workspace-above-first)
+          ((if is-override then flag else flag') "always-center-single-column"
+            cfg.always-center-single-column
+          )
+          ((if is-override then flag else flag') "empty-workspace-above-first"
+            cfg.empty-workspace-above-first
+          )
         ];
+
+        layout = _layout false;
+        override-layout = override (_layout true);
       in
       normalize-nodes [
         (plain "input" [
@@ -3692,7 +3699,7 @@
               (optional-node (output.variable-refresh-rate != false) (
                 leaf "variable-refresh-rate" { on-demand = output.variable-refresh-rate == "on-demand"; }
               ))
-              (plain "layout" (override layout cfg.layout output.layout))
+              (plain "layout" (override-layout cfg.layout output.layout))
             ])
           ])
         ]))
@@ -3749,7 +3756,7 @@
         (each' cfg.workspaces (workspace: [
           (node "workspace" workspace.name [
             (nullable leaf "open-on-output" workspace.open-on-output)
-            (plain "layout" (override layout cfg.layout workspace.layout))
+            (plain "layout" (override-layout cfg.layout workspace.layout))
           ])
         ]))
 
