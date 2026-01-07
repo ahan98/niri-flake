@@ -3591,25 +3591,25 @@
 
         override-flag = name: cond: if cond then (flag name) else (leaf name false);
 
-        maybe-override-layout =
-          is-override:
+        maybe-explicit-layout =
+          is-explicit:
           let
             # Explicitly include the workspace/output layout option when it is
             # set to a default value, and the global layout option is set to a
             # non-default value.
-            maybe-optional-node = cond: if is-override then lib.id else optional-node cond;
-            # maybe-flag' = if is-override then override-flag else flag';
+            maybe-optional-node = cond: if is-explicit then lib.id else optional-node cond;
+            # maybe-flag' = if is-explicit then override-flag else flag';
             maybe-flag' =
               name: cond:
               if cond then
                 flag name
-              else if is-override then
+              else if is-explicit then
                 (leaf name false)
               else
                 null;
             maybe-nullable =
               f: name: value:
-              if (value != null || is-override) then (f name value) else null;
+              if (value != null || is-explicit) then (f name value) else null;
           in
           cfg: [
             (leaf "gaps" cfg.gaps)
@@ -3641,8 +3641,8 @@
             (maybe-flag' "empty-workspace-above-first" cfg.empty-workspace-above-first)
           ];
 
-        layout = maybe-override-layout false;
-        override-layout = override (maybe-override-layout true);
+        layout = maybe-explicit-layout false;
+        explicit-layout = override (maybe-explicit-layout true);
       in
       normalize-nodes [
         (plain "input" [
@@ -3717,7 +3717,7 @@
               (optional-node (output.variable-refresh-rate != false) (
                 leaf "variable-refresh-rate" { on-demand = output.variable-refresh-rate == "on-demand"; }
               ))
-              (plain "layout" (override-layout cfg.layout output.layout))
+              (plain "layout" (explicit-layout cfg.layout output.layout))
             ])
           ])
         ]))
@@ -3774,7 +3774,7 @@
         (each' cfg.workspaces (workspace: [
           (node "workspace" workspace.name [
             (nullable leaf "open-on-output" workspace.open-on-output)
-            (plain "layout" (override-layout cfg.layout workspace.layout))
+            (plain "layout" (explicit-layout cfg.layout workspace.layout))
           ])
         ]))
 
